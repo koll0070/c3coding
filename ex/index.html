@@ -1,0 +1,114 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<base href="./">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<title>비버챌린지 코드 검색</title>
+
+		<!-- <link rel="manifest" href="/manifest.json"> -->
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="theme-color" content="#ffffff">
+
+		<!-- Main styles for this application-->
+		<link href="./css/style.css" rel="stylesheet">
+		<link href="./css/pace.min.css" rel="stylesheet">
+		<link href="https://trial.bebras.kr/static/vendors/toastr/css/toastr.min.css" rel="stylesheet">
+	</head>
+	<body class="app flex-row align-items-center">
+		<div class="container">
+			<div class="row justify-content-center">
+        <div class="col-md-12 col-sm-12 col-lg-8">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form method="post" onsubmit="return false;">
+					<input type="hidden" id="code" value="" />
+                    <h1>씨큐브코딩 비버챌린지 코드 검색</h1>
+                    <p></p>                   
+                        <!--<p>예시문항(상시체험): 아래 빈칸에  <code>sw0101</code>를 입력해 주세요.</p>-->
+                        <p>학생 이름을 입력해 주세요. 예) 홍길동</p>
+                    
+
+                    <div class="input-group mb-3">
+                      <input name="user_name" class="form-control" type="text" placeholder="학생 이름" value="">
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <input class="btn btn-primary px-4" type="button" value="코드찾기" />
+                      </div>
+                    </div>
+					<div id="search" style="display:none;">
+						<div class="row" style="height:20px;"></div>
+						<div class="row">
+							<div class="col-8">
+								<span id="user_name"></span> 코드는 <code id="user_code">adfadsfasdfad</code> 입니다. <a href="#" class="aclip" data-clipboard-text="">[코드복사]</a>
+							</div>
+						</div>
+						<div class="row" style="height:10px;"></div>
+						<div class="input-group mb-3">
+							<div class="col-8">
+								<a class="btn btn-primary px-4" href="https://trial.bebras.kr/login/?next=/contests" target="_blank">체험하기</a>
+								<a class="btn btn-success px-4" href="https://challenge.bebras.kr/" target="_blank">도전하기</a>
+							</div>
+						</div>
+					</div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+    <!-- Bootstrap and necessary plugins-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+	
+        $(function () {
+            $("input[type=button]").click(function(){
+				var strUser = $("input[name=user_name]").val();
+				if(strUser == "") {
+					alert('학생 이름을 입력하세요');
+					$("input[name=user_name]").focus();
+				} else {
+					$.ajax({
+						type: "POST",
+						url: "http://sj.sejong21.co.kr/ex/ajax.find_c3.php",
+						data : {
+							"name": strUser
+						},
+						success: function(data){
+							//alert(data);
+							$("#search").show();
+							$("#user_name").html(strUser);
+							$("#user_code").html(data);
+							$(".aclip").attr('data-clipboard-text', data);
+						},
+						error: function(err){ alert("호출 실패하였습니다.") ;}
+					});
+				}
+			});
+			
+        });
+    </script>
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+	<script>
+		//var btn = document.getElementById('aclip');
+		//var clipboard = new Clipboard(btn);
+		var clipboard = new ClipboardJS( '.aclip' );
+		clipboard.on('success', function(e) {
+			alert("응시코드가 복사되었습니다\nCtrl+V를 이용해서 코드를 입력하세요");
+			console.log(e);
+		});
+		clipboard.on('error', function(e) {
+			console.log(e);
+		});
+	</script>
+  </body>
+</html>
