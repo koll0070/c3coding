@@ -53,7 +53,7 @@
 								<div class="row">
 									<div class="col-10">
 										<span id="user_name"></span> 학생 큐브클래스 아이디는 <code id="user_code">abcd</code>, 비밀번호는 <code id="user_pass">pass</code> 입니다.<br />
-										<a href="https://www.cubeclass.co.kr/login" target="_blank">[큐브클래스] 이동하기</a>
+										<a href="https://www.cubeclass.co.kr/" target="_blank">[큐브클래스] 이동하기</a>
 									</div>
 								</div>
 								<div class="row" style="height:10px;"></div>
