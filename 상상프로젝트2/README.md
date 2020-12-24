@@ -1,1 +1,2 @@
-그누보드 import version
+- 상상프로젝트 연구노트 개인링크 검색
+- 그누보드 import version
